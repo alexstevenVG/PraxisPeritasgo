@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Práctica de Peritaje MEP · Praxis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16233F;
+    --navy-soft:#1A2F4F;
+    --gold:#C8932B;
+    --gold-deep:#B8822B;
+    --cream:#FAF8F3;
+    --paper:#FFFBF3;
+    --green:#28A745;
+    --green-bg:#D4EDDA;
+    --green-text:#155724;
+    --amber:#FFC107;
+    --amber-bg:#FFF3CD;
+    --amber-text:#856404;
+    --ink:#1C2230;
+    --muted:#5B6478;
+    --line:#E7E1D3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Mulish',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    margin:0;
+    line-height:1.05;
+    color:var(--navy);
+  }
+  p{margin:0;}
+  a{text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  img,svg{display:block;}
+
+  /* ===== NAV ===== */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,248,243,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1120px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:1.05rem;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:var(--navy);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;
+  }
+  .brand small{display:block;font-family:'Mulish';font-weight:600;font-size:.62rem;letter-spacing:.12em;color:var(--gold-deep);text-transform:uppercase;}
+  .nav-cta{
+    background:var(--navy);color:#fff;font-weight:700;font-size:.88rem;
+    padding:10px 20px;border-radius:30px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-cta:hover{background:var(--navy-soft);}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:64px 0 56px;
+    background:
+      radial-gradient(800px 400px at 85% -10%, rgba(200,147,43,.16), transparent 60%),
+      var(--cream);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--navy);color:var(--gold);
+    font-weight:700;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:7px 14px;border-radius:30px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"●";color:var(--gold);font-size:.6rem;}
+  .hero h1{
+    font-size:2.7rem;font-weight:600;letter-spacing:-.01em;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--gold-deep);
+    background:linear-gradient(transparent 62%, rgba(200,147,43,.28) 62%);
+  }
+  .hero-sub{
+    margin-top:20px;font-size:1.08rem;line-height:1.6;color:var(--muted);max-width:520px;
+  }
+  .hero-ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold-deep);color:#fff;font-weight:800;font-size:.96rem;
+    padding:15px 28px;border-radius:12px;box-shadow:0 10px 24px -8px rgba(184,130,43,.55);
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{background:#a3741f;}
+  .btn-secondary{
+    border:1.5px solid var(--navy);color:var(--navy);font-weight:700;font-size:.96rem;
+    padding:15px 24px;border-radius:12px;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-secondary:hover{background:rgba(22,35,63,.06);}
+  .hero-price-note{margin-top:16px;font-size:.86rem;color:var(--muted);font-weight:600;}
+  .hero-price-note b{color:var(--gold-deep);}
+
+  /* ===== DEVICE MOCK (signature element) ===== */
+  .device{
+    position:relative;background:var(--navy);border-radius:22px;
+    padding:14px;box-shadow:0 30px 60px -20px rgba(22,35,63,.45);
+    transform:rotate(1.2deg);
+  }
+  .device-screen{
+    background:var(--paper);border-radius:14px;overflow:hidden;
+    font-family:'Mulish';
+  }
+  .device-bar{
+    background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;
+    padding:9px 14px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .device-bar span{color:var(--gold);}
+  .qcard{padding:18px;}
+  .qcard .qn{font-size:.7rem;font-weight:800;letter-spacing:.06em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px;}
+  .qcard .qtext{font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:14px;line-height:1.4;}
+  .opt{
+    border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;
+    font-size:.8rem;font-weight:600;margin-bottom:8px;color:var(--ink);
+    display:flex;align-items:center;gap:8px;background:#fff;
+  }
+  .opt.correct{background:var(--green-bg);border-color:var(--green);color:var(--green-text);}
+  .opt.wrong{background:var(--amber-bg);border-color:var(--amber);color:var(--amber-text);}
+  .opt .dot{width:18px;height:18px;border-radius:50%;border:1.5px solid #c8c2ad;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;}
+  .opt.correct .dot{background:var(--green);border-color:var(--green);color:#fff;}
+  .opt.wrong .dot{background:var(--amber);border-color:var(--amber);color:#5c4500;}
+  .feedback-mini{
+    margin-top:6px;background:var(--green-bg);border-radius:10px;padding:12px 14px;
+    border-left:4px solid var(--green);
+  }
+  .feedback-mini .ft{font-size:.78rem;font-weight:800;color:var(--green-text);margin-bottom:3px;}
+  .feedback-mini .fb{font-size:.74rem;color:var(--green-text);line-height:1.4;opacity:.85;}
+  .device-float{
+    position:absolute;background:#fff;border-radius:12px;box-shadow:0 16px 30px -10px rgba(22,35,63,.3);
+    padding:12px 16px;font-size:.76rem;font-weight:800;color:var(--navy);
+  }
+  .device-float.f1{top:-18px;right:-22px;color:var(--green-text);}
+  .device-float.f2{bottom:18px;left:-30px;}
+  .device-float .small{display:block;font-size:.62rem;font-weight:600;color:var(--muted);margin-top:2px;}
+
+  /* ===== TRUST STRIP ===== */
+  .trust{background:var(--navy);padding:18px 0;}
+  .trust-inner{
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:18px;
+    color:#fff;font-size:.84rem;font-weight:700;text-align:center;
+  }
+  .trust-inner span{color:var(--gold);}
+
+  /* ===== SECTION GENERIC ===== */
+  section{padding:74px 0;}
+  .section-head{max-width:640px;margin:0 0 44px;}
+  .section-eyebrow{
+    font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold-deep);margin-bottom:10px;display:block;
+  }
+  .section-head h2{font-size:2.05rem;font-weight:600;}
+  .section-head p{margin-top:14px;color:var(--muted);font-size:1.02rem;line-height:1.6;}
+
+  /* ===== DUAL ACCESS ===== */
+  .dual{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .dual-card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px;
+    position:relative;overflow:hidden;
+  }
+  .dual-card.docente{border-top:5px solid var(--navy);}
+  .dual-card.estudiante{border-top:5px solid var(--gold-deep);}
+  .dual-tag{
+    display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:5px 12px;border-radius:30px;margin-bottom:16px;
+  }
+  .docente .dual-tag{background:rgba(22,35,63,.08);color:var(--navy);}
+  .estudiante .dual-tag{background:rgba(200,147,43,.14);color:var(--gold-deep);}
+  .dual-card h3{font-size:1.4rem;font-weight:600;margin-bottom:14px;}
+  .dual-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .dual-list li{display:flex;gap:10px;font-size:.92rem;color:var(--ink);line-height:1.45;}
+  .dual-list li::before{content:"";min-width:7px;height:7px;border-radius:50%;background:var(--gold-deep);margin-top:7px;}
+
+  /* ===== FEATURE GRID ===== */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .feat{
+    background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;
+  }
+  .feat .ico{
+    width:46px;height:46px;border-radius:12px;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.3rem;
+  }
+  .feat h3{font-size:1.08rem;font-weight:700;font-family:'Mulish';margin-bottom:8px;}
+  .feat p{font-size:.88rem;color:var(--muted);line-height:1.55;}
+
+  /* ===== SPECIALTIES ===== */
+  .spec-strip{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .spec-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .spec-chip{
+    background:#fff;border:1.5px solid var(--line);border-radius:30px;
+    padding:10px 18px;font-size:.84rem;font-weight:700;color:var(--navy);
+    display:flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .spec-chip .n{
+    background:var(--navy);color:var(--gold);font-size:.66rem;font-weight:800;
+    padding:2px 8px;border-radius:30px;flex-shrink:0;
+  }
+
+  /* ===== PRICE ===== */
+  .price-wrap{
+    background:var(--navy);border-radius:24px;padding:52px 48px;
+    display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .price-wrap::before{
+    content:"";position:absolute;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,147,43,.22),transparent 70%);
+    top:-140px;right:-100px;
+  }
+  .price-left h2{color:#fff;font-size:1.9rem;font-weight:600;margin-bottom:14px;}
+  .price-left p{color:#cdd4e3;font-size:.98rem;line-height:1.6;max-width:430px;}
+  .price-box{
+    background:var(--paper);border-radius:18px;padding:32px 36px;text-align:center;min-width:240px;
+    position:relative;z-index:1;
+  }
+  .price-box .amount{font-family:'Fraunces';font-size:2.6rem;font-weight:700;color:var(--navy);}
+  .price-box .amount sup{font-size:1.1rem;font-weight:600;color:var(--gold-deep);}
+  .price-box .per{font-size:.82rem;color:var(--muted);font-weight:700;margin-top:2px;}
+  .price-box .inf{
+    margin-top:14px;background:var(--green-bg);color:var(--green-text);
+    font-size:.76rem;font-weight:800;padding:7px 12px;border-radius:30px;display:inline-flex;
+  }
+
+  /* ===== STEPS ===== */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .step{position:relative;padding-left:0;}
+  .step .num{
+    font-family:'Fraunces';font-size:2.6rem;font-weight:700;color:var(--gold);
+    -webkit-text-stroke:1.5px var(--navy);color:transparent;margin-bottom:10px;display:block;
+  }
+  .step h3{font-size:1.05rem;font-weight:700;font-family:'Mulish';margin-bottom:8px;}
+  .step p{font-size:.88rem;color:var(--muted);line-height:1.5;}
+
+  /* ===== FINAL CTA ===== */
+  .final{
+    background:linear-gradient(135deg,var(--navy),var(--navy-soft));
+    border-radius:26px;padding:60px 48px;text-align:center;position:relative;overflow:hidden;
+  }
+  .final::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(500px 260px at 50% 0%, rgba(200,147,43,.22), transparent 70%);
+  }
+  .final h2{color:#fff;font-size:2.1rem;font-weight:600;margin-bottom:14px;position:relative;z-index:1;}
+  .final p{color:#cdd4e3;font-size:1rem;max-width:480px;margin:0 auto 30px;line-height:1.6;position:relative;z-index:1;}
+  .final-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+  footer{padding:32px 0;text-align:center;color:var(--muted);font-size:.82rem;}
+  footer b{color:var(--navy);}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:2.1rem;}
+    .dual{grid-template-columns:1fr;}
+    .feat-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .price-wrap{grid-template-columns:1fr;text-align:center;padding:36px 26px;}
+    .price-left p{margin:0 auto;}
+    .final{padding:42px 26px;}
+    .device{transform:none;margin-top:24px;}
+    .device-float{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div>Praxis<br><small>Práctica de Peritaje</small></div>
+    </div>
+    <a href="https://wa.me/50688366629" class="nav-cta">Quiero practicar →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Exámenes de práctica · Peritaje MEP</span>
+      <h1>Practicá el peritaje <em>de tu especialidad</em> hasta que te lo sepás de memoria</h1>
+      <p class="hero-sub">
+        En Praxis encontrás el examen de práctica del peritaje técnico de tu especialidad: preguntas reales,
+        retroalimentación inmediata y todos los intentos que necesités. El docente entra como docente,
+        el estudiante entra como estudiante, y cada uno ve exactamente lo que le toca.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/50688366629" class="btn-primary">Activar mi examen de práctica →</a>
+        <a href="#como" class="btn-secondary">Ver cómo funciona</a>
+      </div>
+      <p class="hero-price-note">Desde <b>₡5.000</b> por examen de práctica · acceso e intentos ilimitados</p>
+    </div>
+
+    <div>
+      <div class="device">
+        <div class="device-screen">
+          <div class="device-bar">Peritaje · Accounting (3001) <span>Intento #4</span></div>
+          <div class="qcard">
+            <div class="qn">Pregunta 12 de 70</div>
+            <div class="qtext">¿Cuál es el tratamiento contable correcto para el deterioro de cuentas por cobrar según la NIIF aplicable?</div>
+            <div class="opt correct"><span class="dot">✓</span> Se reconoce una estimación por incobrables contra resultados</div>
+            <div class="opt wrong"><span class="dot">✗</span> Se elimina la cuenta sin afectar el resultado del período</div>
+            <div class="feedback-mini">
+              <div class="ft">✓ ¡Respuesta correcta!</div>
+              <div class="fb">La estimación refleja el deterioro esperado sin esperar a la baja definitiva de la cuenta.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap trust-inner">
+    <div><span>70</span> preguntas por especialidad</div>
+    <div><span>∞</span> intentos incluidos</div>
+    <div><span>100%</span> retroalimentación al instante</div>
+    <div><span>₡5.000</span> por examen, sin mensualidades</div>
+  </div>
+</div>
+
+<section id="como">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Una plataforma, dos accesos</span>
+      <h2>Cada quien entra a ver lo suyo</h2>
+      <p>El docente y el estudiante usan el mismo examen, pero cada uno con su propia vista. Sin confusión, sin compartir cuentas, sin perder de vista quién va avanzando.</p>
+    </div>
+    <div class="dual">
+      <div class="dual-card docente">
+        <span class="dual-tag">Acceso docente</span>
+        <h3>Vos llevás el control del grupo</h3>
+        <ul class="dual-list">
+          <li>Activás el examen de práctica de la especialidad que necesitás reforzar.</li>
+          <li>Tus estudiantes practican con preguntas reales del peritaje técnico.</li>
+          <li>Identificás de un vistazo en qué áreas el grupo necesita más repaso.</li>
+          <li>Sin instalar nada: funciona desde el navegador, en cualquier equipo.</li>
+        </ul>
+      </div>
+      <div class="dual-card estudiante">
+        <span class="dual-tag">Acceso estudiante</span>
+        <h3>Practicás hasta sentirte listo</h3>
+        <ul class="dual-list">
+          <li>Entrás con tu usuario y vas directo al examen de tu especialidad.</li>
+          <li>Cada respuesta te dice al instante si está bien o mal, y por qué.</li>
+          <li>Repetís el examen las veces que querás: no hay límite de intentos.</li>
+          <li>Ves tu historial y comparás si mejoraste de un intento a otro.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spec-strip">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:28px;">
+      <span class="section-eyebrow">Especialidades disponibles · MEP 2026</span>
+      <h2>Tu peritaje, en tu especialidad</h2>
+      <p style="margin-top:14px;color:var(--muted);font-size:1.02rem;">Cubrimos las especialidades técnicas oficiales del MEP en sus tres modalidades: Industrial, Comercial y de Servicios, y Agropecuaria.</p>
+    </div>
+    <div class="spec-row">
+      <span class="spec-chip"><span class="n">3030</span> Inteligencia Artificial</span>
+      <span class="spec-chip"><span class="n">3006</span> Ciberseguridad</span>
+      <span class="spec-chip"><span class="n">3016</span> Desarrollo Web</span>
+      <span class="spec-chip"><span class="n">3015</span> Apps Móviles</span>
+      <span class="spec-chip"><span class="n">3023</span> Desarrollo de Software</span>
+      <span class="spec-chip"><span class="n">3001</span> Accounting</span>
+      <span class="spec-chip"><span class="n">3002</span> Admin, Logística y Distribución</span>
+      <span class="spec-chip"><span class="n">3004</span> Banca y Finanzas</span>
+      <span class="spec-chip"><span class="n">2007</span> Diseño Gráfico</span>
+      <span class="spec-chip"><span class="n">3022</span> Gerencia y Producción en Cocina</span>
+      <span class="spec-chip" style="background:var(--navy);color:#fff;border-color:var(--navy);"><span class="n">+47</span> Todas las especialidades técnicas MEP 2026</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Por qué funciona</span>
+      <h2>No es un examen más, es un entrenador</h2>
+      <p>Cada examen está diseñado para que el estudiante salga sabiendo exactamente qué reforzar, y el docente sepa exactamente dónde insistir.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Corrección al instante</h3>
+        <p>Apenas el estudiante responde, ve si está bien o mal y por qué. No espera hasta el final para aprender de su error.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>Análisis por tema</h3>
+        <p>El examen muestra en qué áreas del programa el estudiante anda fuerte y en cuáles necesita repasar antes del peritaje real.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.4"><path d="M6.5 8.5a3.5 3.5 0 1 0 0 7c1.6 0 2.7-1 3.5-2.2l4-4.6c.8-1.2 1.9-2.2 3.5-2.2a3.5 3.5 0 1 1 0 7c-1.6 0-2.7-1-3.5-2.2l-4-4.6c-.8-1.2-1.9-2.2-3.5-2.2Z"/></svg></div>
+        <h3>Intentos ilimitados</h3>
+        <p>Puede volver a intentarlo todas las veces que quiera. Cada intento se guarda y se compara con el anterior.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.4"><rect x="6" y="2.5" width="12" height="19" rx="2.2"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg></div>
+        <h3>Desde cualquier equipo</h3>
+        <p>Funciona en el celular o la computadora, sin instalar nada ni depender de una app.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.8"/><circle cx="12" cy="12" r="1.2" fill="#C8932B"/></svg></div>
+        <h3>Preguntas reales del peritaje</h3>
+        <p>Basadas en la estructura y el nivel del peritaje técnico oficial de cada especialidad.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8932B" stroke-width="2.4"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div>
+        <h3>Acceso ordenado</h3>
+        <p>Cada estudiante ve solo su examen y sus resultados. El docente ve el avance de su grupo, sin enredos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="price-wrap">
+      <div class="price-left">
+        <h2>Un precio claro, sin mensualidad</h2>
+        <p>Pagás una sola vez por el examen de práctica de la especialidad que necesitás. Desde ese momento, intentos ilimitados hasta que te sientas listo para el peritaje real.</p>
+      </div>
+      <div class="price-box">
+        <div class="amount"><sup>₡</sup>5.000</div>
+        <div class="per">por examen de práctica</div>
+        <div class="inf">Intentos infinitos incluidos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Así empezás</span>
+      <h2>Listo en tres pasos</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Escogés la especialidad</h3>
+        <p>Nos decís qué peritaje vas a presentar (o qué especialidad necesita reforzar tu grupo).</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Activamos tu acceso</h3>
+        <p>Te damos tu usuario para entrar a Praxis como docente o como estudiante, según corresponda.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Practicás sin límite</h3>
+        <p>Entrás cuando querás, las veces que querás, y ves tu progreso intento tras intento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final">
+      <h2>¿Listo para llegar preparado al peritaje?</h2>
+      <p>Activá tu examen de práctica hoy y empezá a reforzar justo lo que necesitás, a tu ritmo, las veces que querás.</p>
+      <div class="final-ctas">
+        <a href="https://wa.me/50688366629" class="btn-primary">Escribir por WhatsApp →</a>
+        <a href="mailto:gradusfy@gmail.com" class="btn-secondary" style="border-color:#fff;color:#fff;">Enviar correo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Praxis</b> · Práctica de Peritaje MEP · Zona Sur, Costa Rica · <a href="https://wa.me/50688366629" style="color:var(--gold-deep);font-weight:700;">WhatsApp</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
